@@ -10,7 +10,7 @@ public class CharCounter {
     private CharCounter(String input) {
         this.counts = new HashMap<>();
         this.total = input.length();
-        for(char ch : input.toLowerCase().toCharArray()){
+        for(char ch : input.toCharArray()){
             counts.put(ch, counts.getOrDefault(ch, 0)+1);
         }
         this.sorted = counts.entrySet().stream().sorted(Comparator.comparingInt(Map.Entry::getValue)).map(characterIntegerEntry -> characterIntegerEntry.getKey()).collect(Collectors.toUnmodifiableList());
@@ -29,7 +29,7 @@ public class CharCounter {
     }
 
 
-    public static CharCounter count(String input){
-        return new CharCounter(input);
+    public static CharCounter count(String input, boolean ignoreCase){
+        return new CharCounter(ignoreCase?input.toLowerCase():input);
     }
 }

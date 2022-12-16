@@ -1,8 +1,9 @@
-package com.github.industrialcraft.dman.regex;
+package com.github.industrialcraft.dman;
 
 import io.vavr.collection.Vector;
 import io.vavr.control.Option;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -24,6 +25,17 @@ public class Regex {
             return matcher;
         return null;
     }
+    public Vector<String> parse(String input){
+        Matcher matcher = this.pattern.matcher(input);
+        if(matcher.matches()) {
+            ArrayList<String> toReturn = new ArrayList<>();
+            for(int i = 0;i < matcher.groupCount();i++){
+                toReturn.add(matcher.group(i+1));
+            }
+            return Vector.ofAll(toReturn);
+        }
+        return null;
+    }
     public Vector<String> split(String input){
         return Vector.of(this.pattern.split(input));
     }
@@ -37,7 +49,7 @@ public class Regex {
         cache.put(input, cached);
         return cached;
     }
-    public static Regex lit(String input){
+    public static Regex li(String input){
         input = Pattern.quote(input);
         Regex cached = cache.get(input);
         if(cached != null)

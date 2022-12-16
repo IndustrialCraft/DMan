@@ -1,6 +1,5 @@
 package com.github.industrialcraft.dman;
 
-import com.github.industrialcraft.dman.regex.Regex;
 import io.vavr.collection.Vector;
 
 public class StringSplitter {
